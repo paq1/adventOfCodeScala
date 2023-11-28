@@ -1,3 +1,5 @@
-package services trait InputReader {
+package services
 
+trait InputReader {
+  def getList: List[String]
 }

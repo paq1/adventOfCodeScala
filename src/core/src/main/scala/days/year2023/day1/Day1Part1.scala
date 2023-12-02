@@ -1,4 +1,4 @@
-package days.`2023`.day1
+package days.year2023.day1
 
 import days.DayPartJob
 import services.InputReader

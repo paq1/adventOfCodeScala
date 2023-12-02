@@ -1,6 +1,6 @@
 package year2023.day1
 
-import days.`2023`.day1.Day1Part2
+import days.year2023.day1.Day1Part2
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec
 import services.InputReader

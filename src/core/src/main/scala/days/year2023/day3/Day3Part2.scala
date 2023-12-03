@@ -12,6 +12,13 @@ class Day3Part2(inputReader: InputReader) extends DayPartJob {
       carte: List[String]
   ): Int = {
     val mapReaderService = new MapReader(carte)
-    mapReaderService.sumOfproductGear
+    mapReaderService.allSpecificSymbolPos('*')
+      .map { position =>
+        mapReaderService.fromPositionToAdjacentNumbers(position)
+      }
+      .filter { list => list.length == 2 }
+      .map(_.map(_._2))
+      .map(_.product)
+      .sum
   }
 }

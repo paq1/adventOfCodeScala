@@ -65,18 +65,7 @@ class MapReader(carte: List[String]) {
       }
   }
 
-  def sumOfproductGear = {
-    allSpecificSymbolPos('*')
-      .map { position =>
-        fromPositionToAdjacentNumbers(position)
-      }
-      .filter { list => list.length == 2 }
-      .map(_.map(_._2))
-      .map(_.product)
-      .sum
-  }
-
-  private def allSpecificSymbolPos(symbol: Char): List[Position] = {
+  def allSpecificSymbolPos(symbol: Char): List[Position] = {
     carte.zipWithIndex
       .flatMap { lines =>
         lines._1.toCharArray.toList.zipWithIndex

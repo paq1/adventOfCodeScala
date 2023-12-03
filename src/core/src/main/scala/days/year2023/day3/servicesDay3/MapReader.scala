@@ -4,6 +4,53 @@ import days.year2023.day3.Position
 
 class MapReader(carte: List[String]) {
 
+  def fromPositionToAdjacentNumbers(
+      position: Position
+  ): List[(Position, Int)] = {
+    val haut: List[(Position, Int)] = if (position.y != 0) {
+      val hautOpt = getNumberFromPosition(position.copy(y = position.y - 1))
+      if (hautOpt.isEmpty) {
+        List(
+          getNumberFromPosition(
+            position.copy(y = position.y - 1, x = position.x - 1)
+          ),
+          getNumberFromPosition(
+            position.copy(y = position.y - 1, x = position.x + 1)
+          )
+        ).flatten
+      } else List(hautOpt).flatten
+    } else Nil
+
+    val bas = if (position.y != carte.length - 1) {
+      val basOpt = getNumberFromPosition(position.copy(y = position.y + 1))
+      if (basOpt.isEmpty) {
+        List(
+          getNumberFromPosition(
+            position.copy(y = position.y + 1, x = position.x - 1)
+          ),
+          getNumberFromPosition(
+            position.copy(y = position.y + 1, x = position.x + 1)
+          )
+        ).flatten
+      } else List(basOpt).flatten
+    } else None
+
+    val droite = if (position.x != carte(position.y).length - 1) {
+      getNumberFromPosition(position.copy(x = position.x + 1))
+    } else None
+
+    val gauche = if (position.x != 0) {
+      getNumberFromPosition(position.copy(x = position.x - 1))
+    } else None
+
+    List(
+      haut,
+      droite,
+      bas,
+      gauche
+    ).flatten
+  }
+
   def allSymbolPos: List[Position] = {
     carte.zipWithIndex
       .flatMap { lines =>
@@ -18,7 +65,7 @@ class MapReader(carte: List[String]) {
       }
   }
 
-  def getNumberFromPosition(position: Position): Option[Int] = {
+  def getNumberFromPosition(position: Position): Option[(Position, Int)] = {
     if (!carte(position.y).charAt(position.x).isDigit) {
       None
     } else {
@@ -58,7 +105,31 @@ class MapReader(carte: List[String]) {
         }
         ._1
 
-      Some(s"$partLeft${carte(position.y).charAt(position.x)}$partRight".toInt)
+      Some(
+        (
+          getIdFromPosition(position),
+          s"$partLeft${carte(position.y).charAt(position.x)}$partRight".toInt
+        )
+      )
     }
+  }
+
+  private def getIdFromPosition(position: Position): Position = {
+    val partOfLeftStringForAnalyse: String =
+      carte(position.y).substring(0, position.x)
+    val identifiant = partOfLeftStringForAnalyse
+      .foldRight((position, true)) { (current, acc) =>
+        if (acc._2) {
+          if (current.isDigit) {
+            (acc._1.copy(x = acc._1.x - 1), true)
+          } else {
+            (acc._1, false)
+          }
+        } else {
+          acc
+        }
+      }
+      ._1
+    identifiant
   }
 }

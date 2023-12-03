@@ -31,7 +31,7 @@ class MapReaderSpec extends AnyFlatSpec with MockFactory {
     val res = mapReader.getNumberFromPosition(position)
 
     // then
-    assert(res.contains(467))
+    assert(res.map(_._2).contains(467))
   }
 
   it should "return 467 when 1,0" in {
@@ -42,7 +42,7 @@ class MapReaderSpec extends AnyFlatSpec with MockFactory {
     val res = mapReader.getNumberFromPosition(position)
 
     // then
-    assert(res.contains(467))
+    assert(res.map(_._2).contains(467))
   }
 
   it should "return 467 when 2,0" in {
@@ -53,7 +53,7 @@ class MapReaderSpec extends AnyFlatSpec with MockFactory {
     val res = mapReader.getNumberFromPosition(position)
 
     // then
-    assert(res.contains(467))
+    assert(res.map(_._2).contains(467))
   }
 
   it should "return 592 when 3,6" in {
@@ -64,7 +64,7 @@ class MapReaderSpec extends AnyFlatSpec with MockFactory {
     val res = mapReader.getNumberFromPosition(position)
 
     // then
-    assert(res.contains(592))
+    assert(res.map(_._2).contains(592))
   }
 
   it should "return None when 3,0" in {

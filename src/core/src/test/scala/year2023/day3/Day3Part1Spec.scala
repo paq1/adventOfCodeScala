@@ -73,6 +73,22 @@ class Day3Part1Spec extends AnyFlatSpec with MockFactory {
     assert(result == "61")
   }
 
+  it should "return 467 when top right" in {
+
+    (reader.getList _)
+      .expects()
+      .returning(
+        List(
+          "467..114..",
+          "...*......"
+        )
+      )
+
+    val result = part1.result
+
+    assert(result == "467")
+  }
+
   it should "return 4361 when advent exemple is compute" in {
 
     (reader.getList _)

@@ -1,9 +1,9 @@
-import days.year2023.day2.Day2Part2
+import days.year2023.day3.Day3Part1
 import services.InputReaderFile
 
 object Application extends App {
-  val inputReader = new InputReaderFile("data/2023/day2")
-  val res = new Day2Part2(inputReader).result
+  val inputReader = new InputReaderFile("data/2023/day3")
+  val res = new Day3Part1(inputReader).result
 
   println(res)
 }

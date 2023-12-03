@@ -1,8 +1,8 @@
-package days.day1
+package year2019.day1
 
-import days.`2019`.day1.Day1Part1
-import org.scalatest.flatspec.AnyFlatSpec
+import days.year2019.day1.Day1Part1
 import org.scalamock.scalatest.MockFactory
+import org.scalatest.flatspec.AnyFlatSpec
 import services.InputReader
 class Day1Part1Spec extends AnyFlatSpec with MockFactory {
 

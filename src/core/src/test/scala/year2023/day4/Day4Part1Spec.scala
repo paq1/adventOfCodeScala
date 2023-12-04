@@ -11,14 +11,72 @@ class Day4Part1Spec extends AnyFlatSpec with MockFactory {
 
   val part1 = new Day4Part1(reader)
 
-  it should "return 1 when xxx" in {
+  it should "return 8 when we have 4 winning" in {
 
     (reader.getList _)
       .expects()
-      .returning(List("xxx"))
+      .returning(List("Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"))
+
+    val result = part1.result
+
+    assert(result == "8")
+  }
+
+  it should "return 2 when we have 2 winning" in {
+
+    (reader.getList _)
+      .expects()
+      .returning(List("Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19"))
+
+    val result = part1.result
+
+    assert(result == "2")
+  }
+
+  it should "return 1 when we have 1 winning" in {
+
+    (reader.getList _)
+      .expects()
+      .returning(List("Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83"))
 
     val result = part1.result
 
     assert(result == "1")
+  }
+
+  it should "return 0 when we have 0 winning" in {
+
+    (reader.getList _)
+      .expects()
+      .returning(
+        List(
+          "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36",
+          "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"
+        )
+      )
+
+    val result = part1.result
+
+    assert(result == "0")
+  }
+
+  it should "return 13 when we sum all exemple test" in {
+
+    (reader.getList _)
+      .expects()
+      .returning(
+        List(
+          "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
+          "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19",
+          "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1",
+          "Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83",
+          "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36",
+          "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"
+        )
+      )
+
+    val result = part1.result
+
+    assert(result == "13")
   }
 }

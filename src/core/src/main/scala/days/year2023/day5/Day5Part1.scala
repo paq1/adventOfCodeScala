@@ -43,7 +43,6 @@ class Day5Part1(inputReader: InputReader) extends DayPartJob {
       .toList
 
     val mappers: Map[String, SeedMapper] = firstReformatStep.tail.map { group =>
-      println(s"xx${group}xx")
 
       val titre = group.split(":").head.replace(" map", "")
       val infos = group
@@ -68,9 +67,6 @@ class Day5Part1(inputReader: InputReader) extends DayPartJob {
       }
       titre -> new SeedMapper(schemas)
     }.toMap
-
-    println(input)
-    println(firstReformatStep)
 
     (seed, mappers)
   }

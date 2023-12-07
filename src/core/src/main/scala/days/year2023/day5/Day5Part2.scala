@@ -4,41 +4,44 @@ import days.DayPartJob
 import days.year2023.day5.mapper.SeedMapper
 import services.InputReader
 
+// first try  : 79004095
+// seconf try : 79004095
+
 class Day5Part2(inputReader: InputReader) extends DayPartJob {
   override def result: String =
     traitement(inputReader.getList).toString
 
   private def traitement(chaine: List[String]): Long = {
-
     val inputs = reformatInput(chaine)
+    val seeds = (inputs._1).grouped(2).toSet
+    seeds
+      .map { seeds =>
+        val startedSeed = seeds.head
+        val rangeSeed = seeds.last
+        var lowest = Long.MaxValue
 
-    val seeds = (inputs._1).grouped(2).toList
+        var currentSeed = startedSeed
+        while (currentSeed <= startedSeed + rangeSeed) {
+          val location = fromSeedToLocation(currentSeed, inputs._2)
+          if (location < lowest) lowest = location
+          currentSeed += 1
+        }
 
-    val allSeeds = seeds
-      .flatMap { list =>
-        val depart = list.head
-        val iteration = list.last
-
-        (depart to (depart + iteration)).toList
+        lowest
       }
+      .min
+  }
 
-    println(seeds)
-    println(allSeeds)
-
-    val locations = allSeeds.map { seed =>
-      val soil = inputs._2("seed-to-soil").convertir(seed)
-      val fertilizer = inputs._2("soil-to-fertilizer").convertir(soil)
-      val water = inputs._2("fertilizer-to-water").convertir(fertilizer)
-      val light = inputs._2("water-to-light").convertir(water)
-      val temperature = inputs._2("light-to-temperature").convertir(light)
-      val humidity =
-        inputs._2("temperature-to-humidity").convertir(temperature)
-      val location = inputs._2("humidity-to-location").convertir(humidity)
-
-      location
-    }
-
-    locations.min
+  private def fromSeedToLocation(seed: Long, mappers: Map[String, SeedMapper]): Long = {
+    val soil = mappers("seed-to-soil").convertir(seed)
+    val fertilizer = mappers("soil-to-fertilizer").convertir(soil)
+    val water = mappers("fertilizer-to-water").convertir(fertilizer)
+    val light = mappers("water-to-light").convertir(water)
+    val temperature = mappers("light-to-temperature").convertir(light)
+    val humidity =
+      mappers("temperature-to-humidity").convertir(temperature)
+    val location = mappers("humidity-to-location").convertir(humidity)
+    location
   }
 
   private def reformatInput(

@@ -8,30 +8,30 @@ class SeedMapperSpec extends AnyFlatSpec with MockFactory {
 
   it should "return 81 when seed is 79 for seedMapperSoil example" in {
 
-    val result = seedMapperSoil.convertir(79)
+    val result = seedMapperSoil.convertir(79L)
 
-    assert(result.equals(81))
+    assert(result.equals(81L))
   }
 
   it should "return 14 when seed is 14 for seedMapperSoil example" in {
 
-    val result = seedMapperSoil.convertir(14)
+    val result = seedMapperSoil.convertir(14L)
 
-    assert(result.equals(14))
+    assert(result.equals(14L))
   }
 
   it should "return 57 when seed is 55 for seedMapperSoil example" in {
 
-    val result = seedMapperSoil.convertir(55)
+    val result = seedMapperSoil.convertir(55L)
 
-    assert(result.equals(57))
+    assert(result.equals(57L))
   }
 
   it should "return 13 when seed is 13 for seedMapperSoil example" in {
 
-    val result = seedMapperSoil.convertir(13)
+    val result = seedMapperSoil.convertir(13L)
 
-    assert(result.equals(13))
+    assert(result.equals(13L))
   }
 
   val seedMapperSoil = new SeedMapper(

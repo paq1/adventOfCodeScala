@@ -13,26 +13,32 @@ class Day5Part2(inputReader: InputReader) extends DayPartJob {
 
   private def traitement(chaine: List[String]): Long = {
     val inputs = reformatInput(chaine)
-    val seeds = (inputs._1).grouped(2).toSet
-    seeds
-      .map { seeds =>
-        val startedSeed = seeds.head
-        val rangeSeed = seeds.last
-        var lowest = Long.MaxValue
+    val seeds = (inputs._1).grouped(2).toList
 
-        var currentSeed = startedSeed
-        while (currentSeed <= startedSeed + rangeSeed) {
-          val location = fromSeedToLocation(currentSeed, inputs._2)
-          if (location < lowest) lowest = location
-          currentSeed += 1
-        }
+    println(seeds)
 
-        lowest
+    val lowestLocation = seeds.map { seeds =>
+      val startedSeed = seeds.head
+      val rangeSeed = seeds.last
+      var lowest = Long.MaxValue
+
+      var currentSeed = startedSeed
+      while (currentSeed < startedSeed + rangeSeed) {
+        val location = fromSeedToLocation(currentSeed, inputs._2)
+        if (location < lowest) lowest = location
+        currentSeed += 1L
       }
-      .min
+
+      lowest
+    }.min
+
+    lowestLocation
   }
 
-  private def fromSeedToLocation(seed: Long, mappers: Map[String, SeedMapper]): Long = {
+  private def fromSeedToLocation(
+      seed: Long,
+      mappers: Map[String, SeedMapper]
+  ): Long = {
     val soil = mappers("seed-to-soil").convertir(seed)
     val fertilizer = mappers("soil-to-fertilizer").convertir(soil)
     val water = mappers("fertilizer-to-water").convertir(fertilizer)
